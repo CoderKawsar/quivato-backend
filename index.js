@@ -68,11 +68,11 @@ async function run() {
           reviewer_image: base64Image, // Store Base64 encoded image
         };
 
-        const result = await reviewCollection.insertOne(newReview);
-        res.send(result);
-
         // Delete the uploaded image after successful processing
         fs.unlinkSync(uploadedFile.path);
+
+        const result = await reviewCollection.insertOne(newReview);
+        res.send(result);
       } catch (error) {
         console.error(error); // Handle potential errors during file reading
         res.status(500).send({ message: "Error processing image!" });
